@@ -23,7 +23,7 @@ jobs:
             CORE_LATEST_VER=v${CORE_LATEST_VER}
           fi
           DIST_TAGS_URL="https://api.github.com/repos/${{ github.repository }}/tags"
-          DIST_TAG_FOUND=`curl curl -H "Accept: application/vnd.github.v3+json" -H "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36" -s ${DIST_TAGS_URL} --connect-timeout 5 | grep "\"name\"\: \"${CORE_LATEST_VER}\""` || true
+          DIST_TAG_FOUND=`curl -H "Accept: application/vnd.github.v3+json" -H "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36" -s ${DIST_TAGS_URL} --connect-timeout 5 | grep "\"name\"\: \"${CORE_LATEST_VER}\""` || true
           if [ -z ${DIST_TAG_FOUND} ]; then
             rm -rf *
             for file in $(curl -H "Accept: application/vnd.github.v3+json" -H "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36" -sSL $CORE_TAG_URL | grep 'browser_download_url' | cut -d\" -f4); do
